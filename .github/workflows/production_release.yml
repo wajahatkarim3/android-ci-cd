@@ -13,8 +13,9 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-  runs-on: ubuntu-18.04
-    name: Generate Release Name    
+    name: Generate Release Name
+    runs-on: ubuntu-18.04
+    
     steps:
       - name: Commit Latest Version
         run:
