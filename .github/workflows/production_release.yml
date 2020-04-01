@@ -1,0 +1,31 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Production Release
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+    tags: 
+      - '[0-9]+.[0-9]+.[0-9]'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    name: Generate Release Name
+    
+    steps:
+      - name: Commit Latest Version
+        run:
+          latest_version = "${git describe --match "[0-9]*\.[0-9]*\.[0-9]*" --abbrev=0 --tags}"
+          change_to = "versionName "\"$latest_version"\""
+          sed -i "0,/versionName/{s/.*versionName.*/$change_to/}" app/build.gradle
+          git commit -m "Bump version release for $latest_version" -a
+          
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: master
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
