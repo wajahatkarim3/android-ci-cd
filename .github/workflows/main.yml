@@ -49,9 +49,9 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
           
       - name: Upload to Github Releases
-        uses: JasonEtco/upload-to-release@master
+        uses: yakuhzi/action-release@v1.2.0
         with:
-          args: app/build/outputs/apk/debug/app-debug.apk
+          file: app/build/outputs/apk/debug/app-debug.apk
         env:  
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
           
