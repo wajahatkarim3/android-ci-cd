@@ -49,11 +49,11 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
           
       - name: Upload to Github Releases
-        uses: Shopify/upload-to-release@1.0.0
+        uses: JasonEtco/upload-to-release@master
         with:
-          name: pandemic.apk
-          path: app/build/outputs/apk/debug/app-debug.apk
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          args: app/build/outputs/apk/debug/app-debug.apk
+        env:  
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
           
       - name: Distribute to AppCenter
         uses: devussy/AppCenter-Distribute-Github-Action@v1.0.2
