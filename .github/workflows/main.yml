@@ -78,3 +78,22 @@ jobs:
           group: public
           file: app/build/outputs/apk/debug/app-debug.apk
           silent: false
+
+      - name: Send email
+        uses: devellany/send-mailer@v1.0.2
+        with:
+          host: smtp.google.com
+            # Optional port (defaults to 465)
+            port: 465
+            account: ${{secrets.ACCOUNT}}
+            password: ${{secrets.MAIL_PASSWORD}}
+            sender: devellany
+            from: ${{secrets.ACCOUNT}}
+            to: wajahatkarim3@gmail.com
+            subject: APK Release
+            body: Find attached
+            # Optional content type (defaults to text/plain)
+            contentType: text/plain
+            # Optional attachment files (JSON type. require property 'path')
+            # attachments: '[{"path":"README.md"}]'
+            attachments: file://app/build/outputs/apk/debug/app-debug.apk
