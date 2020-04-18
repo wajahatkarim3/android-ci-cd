@@ -49,10 +49,9 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
           
       - name: Upload to Github Releases
-        uses: yakuhzi/action-release@v1.2.0
-        with:
-          file: app/build/outputs/apk/debug/app-debug.apk
+        uses: fnkr/github-action-ghr@v1.3
         env:  
+          GHR_PATH: app/build/outputs/apk/debug/app-debug.apk
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
           
       - name: Distribute to AppCenter
