@@ -50,7 +50,7 @@ jobs:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
           
-      - name: Upload to Github Releases with release tags
+      - name: Upload to Github Releases with release tags   
         uses: docker://antonyurchenko/git-release:latest
         with:
           args: |
