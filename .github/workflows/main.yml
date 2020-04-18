@@ -58,6 +58,7 @@ jobs:
           release_name: ${{ github.ref }}
           draft: false
           prerelease: false
+          body: file://CHANGELOG.md
 
       - name: Upload APK to Release
         id: upload-release-asset 
@@ -80,16 +81,15 @@ jobs:
           silent: false
 
       - name: Send email
-        uses: devellany/send-mailer@v1.0.2
+        uses: dawidd6/action-send-mail@v2.2.0
         with:
-          host: smtp.google.com
-          port: 465
-          account: ${{secrets.ACCOUNT}}
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.ACCOUNT}}
           password: ${{secrets.MAIL_PASSWORD}}
-          sender: devellany
-          from: ${{secrets.ACCOUNT}}
           to: wajahatkarim3@gmail.com
           subject: APK Release
           body: Find attached
-          contentType: text/plain
-          attachments: file://app/build/outputs/apk/debug/app-debug.apk
+          from: AndroidDev
+          content_type: text/html
+          attachments: ./app/build/outputs/apk/debug/app-debug.apk
