@@ -4,6 +4,8 @@ on:
     branches:
       - 'master'
   push:
+    tags:
+      - "*"
     branches:
       - 'master'
 
@@ -49,10 +51,10 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
           
       - name: Upload to Github Releases
-        uses: actions-github/upload-to-release@v1.0.0
+        uses: docker://antonyurchenko/git-release:latest
         with:
-          file: 'app/build/outputs/apk/debug/app-debug.apk'
-          type: 'application/octet-stream'
+          args: |
+            app/build/outputs/apk/debug/app-debug.apk
         env:  
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
           
