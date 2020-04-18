@@ -41,11 +41,20 @@ jobs:
         
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
-      - name: Upload APK
+        
+      - name: Upload APK to Github Artifacts
         uses: actions/upload-artifact@v1
         with:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
+          
+      - name: Upload to Github Releases
+        uses: Shopify/upload-to-release
+        with:
+          name: pandemic.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          # content-type: text/plain # Optional
           
       - name: Distribute to AppCenter
         uses: devussy/AppCenter-Distribute-Github-Action@v1.0.2
