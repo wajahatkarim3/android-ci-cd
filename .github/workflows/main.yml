@@ -6,8 +6,6 @@ on:
   push:
     tags:
       - "*"
-    branches:
-      - 'master'
 
 jobs:
   test:
@@ -56,7 +54,7 @@ jobs:
           args: |
             app/build/outputs/apk/debug/app-debug.apk
         env:  
-          ALLOW_EMPTY_CHANGELOG: "true"
+          ALLOW_EMPTY_CHANGELOG: "false"
           ALLOW_TAG_PREFIX: "true"
           RELEASE_NAME_PREFIX: "Release "
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
