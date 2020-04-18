@@ -50,12 +50,15 @@ jobs:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
           
-      - name: Upload to Github Releases
+      - name: Upload to Github Releases with release tags
         uses: docker://antonyurchenko/git-release:latest
         with:
           args: |
             app/build/outputs/apk/debug/app-debug.apk
         env:  
+          ALLOW_EMPTY_CHANGELOG: "true"
+          ALLOW_TAG_PREFIX: "true"
+          RELEASE_NAME_PREFIX: "Release "
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
           
       - name: Distribute to AppCenter
