@@ -80,7 +80,7 @@ jobs:
           file: app/build/outputs/apk/debug/app-debug.apk
           silent: false
 
-      - name: Send email
+      - name: Send APK via email
         uses: dawidd6/action-send-mail@v2.2.0
         with:
           server_address: smtp.gmail.com
