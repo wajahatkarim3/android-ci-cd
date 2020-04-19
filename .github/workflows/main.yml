@@ -86,16 +86,23 @@ jobs:
           file: app/build/outputs/apk/debug/app-debug.apk
           silent: false
 
-      - name: Send APK via email
-        uses: dawidd6/action-send-mail@v2.2.0
+      - name: Send APK to Slack
+        uses: adrey/slack-file-upload-action@1.0.2
         with:
-          server_address: smtp.gmail.com
-          server_port: 465
-          username: ${{ secrets. MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          to: wajahatkarim3@gmail.com
-          subject: APK Release
-          body: Find attached
-          from: AndroidDev
-          content_type: text/html
-          attachments: ./app/build/outputs/apk/debug/app-debug.apk
+          token: ${{ secrets.SLACK_TOKEN }}
+          path: ./app/build/outputs/apk/debug/app-debug.apk
+          channel: random
+
+      #- name: Send APK via email
+      #  uses: dawidd6/action-send-mail@v2.2.0
+      #  with:
+      #    server_address: smtp.gmail.com
+      #    server_port: 465
+      #    username: ${{ secrets. MAIL_USERNAME }}
+      #    password: ${{ secrets.MAIL_PASSWORD }}
+      #    to: wajahatkarim3@gmail.com
+      #    subject: APK Release
+      #    body: Find attached
+      #    from: AndroidDev
+      #    content_type: text/html
+      #    attachments: ./app/build/outputs/apk/debug/app-debug.apk
