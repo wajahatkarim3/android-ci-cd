@@ -58,7 +58,6 @@ jobs:
           release_name: ${{ github.ref }}
           draft: false
           prerelease: false
-          body: file://CHANGELOG.md
 
       - name: Upload APK to Release
         id: upload-release-asset 
@@ -70,6 +69,13 @@ jobs:
           asset_path: ./app/build/outputs/apk/debug/app-debug.apk
           asset_name: app-debug.apk
           asset_content_type: application/zip
+
+      - name: Upload APK to Diawii
+        uses: rnkdsh/action-upload-diawi@v1.1.0
+        with:
+          token: ${{ secrets.DIAWI_TOKEN }}
+          file: ./app/build/outputs/apk/debug/app-debug.apk
+          comment: ${{ github.event.head_commit.message }}
           
       - name: Distribute to AppCenter
         uses: devussy/AppCenter-Distribute-Github-Action@v1.0.2
