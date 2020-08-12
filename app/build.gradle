@@ -6,6 +6,8 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+
+
     defaultConfig {
         applicationId "com.wajahatkarim3.pandemic"
         minSdkVersion 22
