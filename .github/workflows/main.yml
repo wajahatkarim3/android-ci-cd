@@ -1,11 +1,8 @@
 name: CI
 on:
-  pull_request:
+  push:
     branches:
       - 'master'
-  push:
-    tags:
-      - "*"
 
 jobs:
   test:
@@ -48,27 +45,27 @@ jobs:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: false
-          prerelease: false
+      #- name: Create Release
+      #  id: create_release
+      #  uses: actions/create-release@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
+      #  with:
+      #    tag_name: ${{ github.ref }}
+      #    release_name: ${{ github.ref }}
+      #    draft: false
+      #    prerelease: false
 
-      - name: Upload APK to Release
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./app/build/outputs/apk/debug/app-debug.apk
-          asset_name: app-debug.apk
-          asset_content_type: application/zip
+      #- name: Upload APK to Release
+      #  id: upload-release-asset 
+      #  uses: actions/upload-release-asset@v1
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GH_TOKEN_RELEASE }}
+      #  with:
+      #    upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+      #    asset_path: ./app/build/outputs/apk/debug/app-debug.apk
+      #    asset_name: app-debug.apk
+      #    asset_content_type: application/zip
 
       #- name: Upload APK to Diawii
       #  uses: rnkdsh/action-upload-diawi@v1.1.0
@@ -86,14 +83,14 @@ jobs:
           file: app/build/outputs/apk/debug/app-debug.apk
           silent: false
 
-      - name: Send APK to Slack
-        uses: adrey/slack-file-upload-action@1.0.2
-        with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          path: ./app/build/outputs/apk/debug/app-debug.apk
-          channel: random
-          filename: Pandemic ${{ github.ref }}.apk
-          initial_comment: ${{ github.event.head_commit.message }}
+      #- name: Send APK to Slack
+      #  uses: adrey/slack-file-upload-action@1.0.2
+      #  with:
+      #    token: ${{ secrets.SLACK_TOKEN }}
+      #    path: ./app/build/outputs/apk/debug/app-debug.apk
+      #    channel: random
+      #    filename: Pandemic ${{ github.ref }}.apk
+      #    initial_comment: ${{ github.event.head_commit.message }}
 
       #- name: Send APK via email
       #  uses: dawidd6/action-send-mail@v2.2.0
